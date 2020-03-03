@@ -10,7 +10,7 @@ tf2onnx: 1.5.5
 onnxruntime: 1.1.0
 ```
 Download [**ssd_mobilenet_v1_coco**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) and move to the root folder.  
-Run **ssd2onnx.bat** to convert ssd_mobilenet_v1_coco_2018_01_28/**saved_model.pb** to **model.onnx**.  
+Run **ssd2onnx.bat** to convert TensorFlow **saved_model.pb** to **model.onnx**.  
 
 ## Examples
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test saved onnx model.  
