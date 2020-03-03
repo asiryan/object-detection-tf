@@ -14,10 +14,12 @@ Run **ssd2onnx.bat** to convert TensorFlow **saved_model.pb** to **model.onnx**.
 
 ## Code
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
-<p align="center"><img width="50%" src="docs/python.jpg" /></p>  
+<p align="center"><img width="70%" src="docs/python.jpg" /></p>  
 <p align="center"><b>Figure 1.</b> Python example</p>  
 
 Build [**csharp**](/csharp) source code and run application.  
+<p align="center"><img width="70%" src="docs/csharp.jpg" /></p>  
+<p align="center"><b>Figure 2.</b> C# example</p>  
 
 ## References
 [1] TensorFlow detection [**model zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).  
