@@ -1,6 +1,6 @@
 import onnxruntime as rt
 import numpy as np
-from PIL import Image, ImageDraw, ImageColor
+from PIL import Image, ImageDraw, ImageColor, ImageFont
 import math
 import matplotlib.pyplot as plt
 import os
@@ -17,7 +17,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "-1"
 os.environ['MODEL'] = MODEL
 os.environ['WORK'] = WORK
 
-img = Image.open(os.path.join(IMAGES, "airport.jpg"))
+img = Image.open(os.path.join(IMAGES, "school.jpg"))
 img_data = np.array(img.getdata()).reshape(img.size[1], img.size[0], 3)
 img_data = np.expand_dims(img_data.astype(np.uint8), axis=0)
 print(img_data)
@@ -49,13 +49,13 @@ def draw_detection(draw, d, c):
     label = coco_classes[c]
     label_size = draw.textsize(label)
     if top - label_size[1] >= 0:
-        text_origin = tuple(np.array([left, top - label_size[1]]))
+        text_origin = tuple(np.array([left, top - label_size[1] / 2]))
     else:
         text_origin = tuple(np.array([left, top + 1]))
-    color = ImageColor.getrgb("red")
+    color = ImageColor.getrgb("yellow")
     thickness = 0
     draw.rectangle([left + thickness, top + thickness, right - thickness, bottom - thickness], outline=color)
-    draw.text(text_origin, label, fill=color)  # , font=font)
+    draw.text(text_origin, label, fill=color, font=font)
 
 coco_classes = {
     1: 'person',
@@ -69,6 +69,8 @@ coco_classes = {
     9: 'boat',
     10: 'traffic light',
 }
+font = ImageFont.truetype(
+    "C:\\Windows\\Fonts\\Arial.ttf", 22)
 
 batch_size = num_detections.shape[0]
 draw = ImageDraw.Draw(img)
