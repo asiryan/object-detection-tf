@@ -48,10 +48,7 @@ def draw_detection(draw, d, c):
     right = min(width, np.floor(right + 0.5).astype('int32'))
     label = coco_classes[c]
     label_size = draw.textsize(label)
-    if top - label_size[1] >= 0:
-        text_origin = tuple(np.array([left, top - label_size[1] / 2]))
-    else:
-        text_origin = tuple(np.array([left, top + 1]))
+    text_origin = tuple(np.array([left + 1, top + 1]))
     color = ImageColor.getrgb("yellow")
     thickness = 0
     draw.rectangle([left + thickness, top + thickness, right - thickness, bottom - thickness], outline=color)
