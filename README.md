@@ -13,7 +13,10 @@ Download [**ssd_mobilenet_v1_coco**](http://download.tensorflow.org/models/objec
 Run **ssd2onnx.bat** to convert TensorFlow **saved_model.pb** to **model.onnx**.  
 
 ## Code
-Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test saved onnx model.  
+Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
+<p align="center"><img width="50%" src="docs/python.jpg" /></p>  
+<p align="center"><b>Figure 1.</b> Python example</p>  
+
 Build [**csharp**](/csharp) source code and run application.  
 
 ## References
