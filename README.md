@@ -31,3 +31,4 @@ Build [**C#**](/csharp) source code and run application.
 [1] TensorFlow detection [**model zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).  
 [2] Tutorial: how to convert them to ONNX and run them under [**onnxruntime**](https://github.com/onnx/tensorflow-onnx/blob/master/tutorials/ConvertingSSDMobilenetToONNX.ipynb).  
 [3] Microsoft: ONNX Runtime [**C#**](https://github.com/microsoft/onnxruntime/blob/master/docs/CSharp_API.md) API.  
+[4] Ready-made ssd_mobile_net_v1 [**onnx-models**](https://yadi.sk/d/RQlhrFvJktxMpw)
