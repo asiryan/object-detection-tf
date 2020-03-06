@@ -18,7 +18,7 @@ Run python script [**object_detection_image_onnx.py**](object_detection_image_on
 <p align="center"><b>Figure 1.</b> Python example</p>  
 
 ## Code (C#)
-Define image and model paths
+Define model and image paths
 ```c#
 string model = @"...\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
 string file = @"...\ssd2onnx\images\airport.jpg";
