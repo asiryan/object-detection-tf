@@ -1,4 +1,4 @@
-# Running TF object detection model in C# using onnxruntime
+# Running TF object detection model using onnxruntime
 
 
 ## Installation
