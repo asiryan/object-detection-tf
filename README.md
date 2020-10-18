@@ -12,7 +12,7 @@ onnxruntime: 1.1.0
 
 ## TF to ONNX
 Download TF object detection model from the [**Model Zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and convert it with to onnx model.  
-For example: converting [**ssd_mobilenet_v1_coco_2018_01_28**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) to onnx model
+For example download [**ssd_mobilenet_v1_coco_2018_01_28**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz). Convert it onnx model from **saved_model.pb**
 ```
 python -m tf2onnx.convert 
   --opset 11 
@@ -20,6 +20,15 @@ python -m tf2onnx.convert
   --saved-model ssd_mobilenet_v1_coco_2018_01_28/saved_model/ 
   --output ssd_mobilenet_v1_coco_2018_01_28/model.onnx
 ```
+or from **frozen_inference_graph.pb**
+```
+python -m tf2onnx.convert 
+  --opset 11 
+  --fold_const 
+  --graphdef ssd_mobilenet_v1_coco_2018_01_28/frozen_inference_graph.pb 
+  --output ssd_mobilenet_v1_coco_2018_01_28/frozen.onnx --inputs image_tensor:0 --outputs detection_boxes:0,detection_classes:0,detection_scores:0,num_detections:0
+```
+
 
 ## Python script
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
