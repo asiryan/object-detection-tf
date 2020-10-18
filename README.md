@@ -1,4 +1,4 @@
-# Running object detection model in C# using onnxruntime
+# Running TF object detection model in C# using onnxruntime
 
 
 ## Installation
@@ -11,8 +11,12 @@ onnxruntime: 1.1.0
 ```
 
 ## TF to ONNX
-Download [**ssd_mobilenet_v1_coco**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) and move to the root folder.  
-Run **tf2onnx.bat** to convert TensorFlow **saved_model.pb** to **model.onnx**.  
+Download TF object detection model from the [**Model Zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and convert it with **tf2onnx.bat** to **onnx** model.  
+### Example 
+Converting [**ssd_mobilenet_v1_coco_2018_01_28**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) to onnx model
+```
+python -m tf2onnx.convert --opset 11 --fold_const --saved-model ssd_mobilenet_v1_coco_2018_01_28/saved_model/ --output ssd_mobilenet_v1_coco_2018_01_28/model.onnx
+```
 
 ## Python script
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
