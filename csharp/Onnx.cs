@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace ssd_mobilenet_v1_coco_2018_01_28_test
+namespace object_detection
 {
     public static class Onnx
     {

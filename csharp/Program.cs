@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ssd_mobilenet_v1_coco_2018_01_28_test
+namespace object_detection
 {
     static class Program
     {
         /// <summary>
-        /// Главная точка входа для приложения.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()

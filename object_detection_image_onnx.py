@@ -4,39 +4,27 @@ from PIL import Image, ImageDraw, ImageColor, ImageFont
 import math
 import matplotlib.pyplot as plt
 import os
-import sys
 
-ROOT = os.getcwd()
-WORK = os.path.join(ROOT, "ssd_mobilenet_v1_coco_2018_01_28")
-IMAGES = os.path.join(ROOT, "images")
-MODEL = "model"
-os.makedirs(WORK, exist_ok=True)
+# params
+MODEL = "ssd_mobilenet_v1_coco_2018_01_28/model.onnx"
+PROTOTXT = 'coco.prototxt'
+IMAGE = 'images/school.jpg'
 
 # force tf2onnx to cpu
 os.environ['CUDA_VISIBLE_DEVICES'] = "-1"
-os.environ['MODEL'] = MODEL
-os.environ['WORK'] = WORK
 
-img = Image.open(os.path.join(IMAGES, "school.jpg"))
+# inference session
+img = Image.open(IMAGE)
 img_data = np.array(img.getdata()).reshape(img.size[1], img.size[0], 3)
 img_data = np.expand_dims(img_data.astype(np.uint8), axis=0)
-print(img_data)
-print(img_data.shape)
-sess = rt.InferenceSession(os.path.join(WORK, MODEL + ".onnx"))
-
-# we want the outputs in this order
-outputs = ["num_detections:0", "detection_boxes:0", "detection_scores:0", "detection_classes:0"]
+sess = rt.InferenceSession(MODEL)
+outputs = ["detection_boxes:0", "detection_classes:0", "detection_scores:0", "num_detections:0"]
 result = sess.run(outputs, {"image_tensor:0": img_data})
-num_detections, detection_boxes, detection_scores, detection_classes = result
-print(num_detections)
-print(detection_classes)
-print(detection_scores)
+detection_boxes, detection_classes, detection_scores, num_detections = result
 
+# draw results
 def draw_detection(draw, d, c):
-    """Draw box and label for 1 detection."""
     width, height = draw.im.size
-    print(width)
-    print(height)
     # the box is relative to the image size so we multiply with height and width to get pixels.
     top = d[0] * height
     left = d[1] * width
@@ -46,7 +34,7 @@ def draw_detection(draw, d, c):
     left = max(0, np.floor(left + 0.5).astype('int32'))
     bottom = min(height, np.floor(bottom + 0.5).astype('int32'))
     right = min(width, np.floor(right + 0.5).astype('int32'))
-    label = coco_classes[c]
+    label = coco_classes[c.astype('int32') - 1] # shift to zero element
     label_size = draw.textsize(label)
     text_origin = tuple(np.array([left + 1, top + 1]))
     color = ImageColor.getrgb("yellow")
@@ -54,20 +42,13 @@ def draw_detection(draw, d, c):
     draw.rectangle([left + thickness, top + thickness, right - thickness, bottom - thickness], outline=color)
     draw.text(text_origin, label, fill=color, font=font)
 
-coco_classes = {
-    1: 'person',
-    2: 'bicycle',
-    3: 'car',
-    4: 'motorcycle',
-    5: 'airplane',
-    6: 'bus',
-    7: 'train',
-    8: 'truck',
-    9: 'boat',
-    10: 'traffic light',
-}
-font = ImageFont.truetype(
-    "C:\\Windows\\Fonts\\Arial.ttf", 22)
+coco_classes = []
+
+with open(PROTOTXT) as lines:
+    for line in lines:
+        coco_classes.append(line.strip())
+
+font = ImageFont.truetype("C:\\Windows\\Fonts\\Arial.ttf", 22)
 
 batch_size = num_detections.shape[0]
 draw = ImageDraw.Draw(img)
@@ -77,8 +58,8 @@ for batch in range(0, batch_size):
         d = detection_boxes[batch][detection]
         draw_detection(draw, d, c)
         
-
-plt.figure(figsize=(80, 40))
+print(detection_scores)
+plt.figure(figsize=(8, 8))
 plt.axis('off')
 plt.imshow(img)
 plt.show()
