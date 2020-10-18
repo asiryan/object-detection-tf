@@ -14,12 +14,12 @@ onnxruntime: 1.1.0
 Download [**ssd_mobilenet_v1_coco**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) and move to the root folder.  
 Run **tf2onnx.bat** to convert TensorFlow **saved_model.pb** to **model.onnx**.  
 
-## Code (Python)
+## Python script
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
 <p align="center"><img width="80%" src="docs/python.jpg" /></p>
 <p align="center"><b>Figure 1.</b> Python example</p>  
 
-## Code (C#)
+## C# application
 Define model and image paths
 ```c#
 string model = @"...\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
