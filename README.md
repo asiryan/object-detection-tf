@@ -12,7 +12,6 @@ onnxruntime: 1.1.0
 
 ## TF to ONNX
 Download TF object detection model from the [**Model Zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and convert it with **tf2onnx.bat** to **onnx** model.  
-### Example 
 Converting [**ssd_mobilenet_v1_coco_2018_01_28**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) to onnx model
 ```
 python -m tf2onnx.convert --opset 11 --fold_const --saved-model ssd_mobilenet_v1_coco_2018_01_28/saved_model/ --output ssd_mobilenet_v1_coco_2018_01_28/model.onnx
