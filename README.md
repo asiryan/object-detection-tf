@@ -11,7 +11,7 @@ onnxruntime: 1.1.0
 ```
 
 ## TF to ONNX
-Download TF object detection model trained on coco dataset from the [**Model Zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and convert it with to onnx model.  
+Download TF object detection model trained on [**COCO dataset**](https://cocodataset.org/#home) from the [**Model Zoo**](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and convert it with to onnx model.  
 For example download [**ssd_mobilenet_v1_coco_2018_01_28**](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) and convert it to onnx model from **saved_model.pb**
 ```
 python -m tf2onnx.convert 
