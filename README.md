@@ -30,7 +30,7 @@ python -m tf2onnx.convert
   --inputs image_tensor:0 
   --outputs detection_boxes:0,detection_classes:0,detection_scores:0,num_detections:0
 ```
-For running **python** and **C#** examples below [**download**](https://yadi.sk/d/ap5F1VPma6qMGQ?w=1) path with already-made **ssd_mobilenet_v1_coco_2018_01_28** onnx models and move it to repository root folder.
+For run **python** and **C#** examples below download [**path**](https://yadi.sk/d/ap5F1VPma6qMGQ?w=1) with already-made **ssd_mobilenet_v1_coco_2018_01_28** onnx models and move it to repository root folder.
 
 ## Python script
 Run python script [**object_detection_image_onnx.py**](object_detection_image_onnx.py) to test converted onnx model.  
