@@ -58,7 +58,7 @@ for batch in range(0, batch_size):
         d = detection_boxes[batch][detection]
         draw_detection(draw, d, c)
         
-print(detection_scores)
+#print(detection_scores)
 plt.figure(figsize=(8, 8))
 plt.axis('off')
 plt.imshow(img)

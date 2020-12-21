@@ -12,9 +12,9 @@ namespace object_detection
     public partial class Form1 : Form
     {
         #region Private data
-        string model = @"C:\ssd2onnx\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
-        string prototxt = @"C:\ssd2onnx\coco.prototxt";
-        string file = @"C:\ssd2onnx\images\airport.jpg";
+        string model = @"..\..\..\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
+        string prototxt = @"..\..\..\coco.prototxt";
+        string file = @"..\..\..\\images\airport.jpg";
         #endregion
 
         #region Form voids
