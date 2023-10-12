@@ -12,27 +12,56 @@ namespace object_detection
     public partial class Form1 : Form
     {
         #region Private data
-        string model = @"..\..\..\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
-        string prototxt = @"..\..\..\coco.prototxt";
-        string file = @"..\..\..\\images\airport.jpg";
+
+        private readonly string model = @"..\..\..\ssd_mobilenet_v1_coco_2018_01_28\model.onnx";
+        private readonly string prototxt = @"..\..\..\coco.prototxt";
+        private readonly InferenceSession session;
+
         #endregion
 
         #region Form voids
+
         public Form1()
         {
             InitializeComponent();
+            DragDrop += Form1_DragDrop;
+            DragEnter += Form1_DragEnter;
+            AllowDrop = true;
+            session = new InferenceSession(model);
+            string file = @"..\..\..\\images\airport.jpg";
+            BackgroundImage = new Bitmap(file);
         }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.All : DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            var file = ((string[])e.Data.GetData(DataFormats.FileDrop, true))[0];
+            BackgroundImage?.Dispose();
+            BackgroundImage = new Bitmap(file, false);
+            Process();
+            Cursor = Cursors.Default;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
+        {
+            Process();
+        }
+
+        private void Process()
         {
             // params
             var threshold = 0.0f;
             var c = Color.Yellow;
-            var font = new Font("Arial", 22);
+            using var font = new Font("Arial", 22);
 
             // inference session
             Console.WriteLine("Starting inference session...");
             var tic = Environment.TickCount;
-            var session = new InferenceSession(model);
             var inputMeta = session.InputMetadata;
             var name = inputMeta.Keys.ToArray()[0];
             var labels = File.ReadAllLines(prototxt);
@@ -41,7 +70,7 @@ namespace object_detection
             // image
             Console.WriteLine("Creating image tensor...");
             tic = Environment.TickCount;
-            var image = new Bitmap(file, false);
+            var image = (Bitmap)BackgroundImage;
             var width = image.Width;
             var height = image.Height;
             var dimentions = new int[] { 1, height, width, 3 };
@@ -88,8 +117,10 @@ namespace object_detection
 
                         // python rectangle
                         var rectangle = Rectangle.FromLTRB(y, x, h, w);
-                        g.DrawString(label, font, new SolidBrush(c), y, x);
-                        g.DrawRectangle(new Pen(c) { Width = 3 }, rectangle);
+                        using var brush = new SolidBrush(c);
+                        using var pen = new Pen(c) { Width = 3 };
+                        g.DrawString(label, font, brush, y, x);
+                        g.DrawRectangle(pen, rectangle);
                     }
                 }
             }
@@ -97,6 +128,7 @@ namespace object_detection
             BackgroundImage = image;
             Console.WriteLine("Drawing was finished in " + (Environment.TickCount - tic) + " mls.");
         }
+
         #endregion
     }
 }
